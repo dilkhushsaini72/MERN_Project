@@ -3,8 +3,6 @@ import logo from "../assets/Quickzy.png";
 import { Link, NavLink } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -25,104 +23,18 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav Links */}
-        <ul className="hidden md:flex gap-6 items-center text-sm sm:text-base font-medium">
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "border-b-2 border-orange-400 text-green-700"
-                  : "hover:text-green-600"
-              }
-              to={"/"}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "border-b-2 border-orange-400 text-green-700"
-                  : "hover:text-green-600"
-              }
-              to={"/blog"}
-            >
-              Blog
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "border-b-2 border-orange-400 text-green-700"
-                  : "hover:text-green-600"
-              }
-              to={"/login"}
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
+        <ul className="flex gap-6 items-center text-sm sm:text-base font-medium">
+          <Link to={"/login"}>
             <MdAccountCircle className="text-2xl text-green-400 hover:text-green-500 cursor-pointer" />
-          </li>
-          <li className="relative cursor-pointer">
+          </Link>
+          <Link to={"/cart"} className="relative cursor-pointer">
             <span className="absolute -top-2.5 -right-[-7px] text-xs font-bold text-purple-600">
               {"0"}
             </span>
             <FaShoppingCart className="text-2xl text-zinc-700 hover:text-zinc-900" />
-          </li>
+          </Link>
         </ul>
-
-        {/* Mobile Icons + Toggle Button */}
-        <div className="flex md:hidden items-center gap-4">
-          <MdAccountCircle className="text-2xl text-green-400 hover:text-green-500 cursor-pointer" />
-          <div className="relative cursor-pointer">
-            <span className="absolute -top-2.5 -right-[-7px] text-xs font-bold text-purple-600">
-              {"0"}
-            </span>
-            <FaShoppingCart className="text-2xl text-zinc-700 hover:text-zinc-900" />
-          </div>
-          {/* Toggle Button */}
-          <button
-            onClick={toggleHandle}
-            className="text-2xl cursor-pointer text-zinc-700 hover:text-zinc-900"
-          >
-            {isShowLinks ? <RxCross2 /> : <GiHamburgerMenu />}
-          </button>
-        </div>
       </div>
-
-      {/* Mobile Nav Menu (hidden by default) */}
-      {isShowLinks && (
-        <div className="md:hidden bg-amber-50 absolute right-5 mt-2 py-5 px-8 rounded-lg shadow-lg pb-4">
-          <ul className="flex flex-col gap-3 text-base font-medium">
-            <li>
-              <NavLink
-                to="/"
-                className="block text-green-700 hover:text-green-600"
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/blog"
-                className="block text-green-700 hover:text-green-600"
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/login"
-                className="block text-green-700 hover:text-green-600"
-              >
-                Login
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      )}
     </nav>
   );
 };
