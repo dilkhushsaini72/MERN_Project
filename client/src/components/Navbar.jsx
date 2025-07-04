@@ -1,17 +1,10 @@
 import React from "react";
 import logo from "../assets/Quickzy.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
-import { useState } from "react";
 
 const Navbar = () => {
-  const [isShowLinks, setIsShowLinks] = useState(false);
-
-  const toggleHandle = () => {
-    setIsShowLinks(!isShowLinks);
-  };
-
   return (
     <nav className="bg-gradient-to-t bg-white to-green-100 shadow-md sticky top-0 z-50">
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10 h-16 flex items-center justify-between">

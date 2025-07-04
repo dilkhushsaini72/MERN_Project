@@ -22,7 +22,9 @@ const Login = () => {
           </h2>
         </div>
         <form className="flex flex-col">
-          <label htmlFor="email">Email</label>
+          <label className="mt-2" htmlFor="email">
+            Email
+          </label>
           <input
             type="email"
             name="email"
@@ -41,9 +43,15 @@ const Login = () => {
           <button className="bg-green-500 rounded-lg mt-6 py-1 font-bold text-white hover:bg-green-700 cursor-pointer">
             Login
           </button>
-          <div className="text-center">
-            <p>Don't have an account</p>
-            <Link to>Register</Link>
+          <div className="flex text-sm justify-center pt-2">
+            <p>Don't have an account- </p>
+            <Link
+              className="text-sky-400 font-bold hover:underline"
+              to={"/registration"}
+            >
+              {" "}
+              Register
+            </Link>
           </div>
         </form>
       </div>
