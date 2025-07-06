@@ -16,7 +16,7 @@ const Category = () => {
     { name: "Cafe", icon: <FaCoffee /> },
     { name: "Home", icon: <FaCouch /> },
     { name: "Toys", icon: <FaPuzzlePiece /> },
-    { name: "Freash", icon: <FaAppleAlt /> },
+    { name: "Fresh", icon: <FaAppleAlt /> },
     { name: "Electronics", icon: <FaLaptopCode /> },
     { name: "Mobile", icon: <FaMobile /> },
     { name: "Beauty", icon: <GiFingernail /> },

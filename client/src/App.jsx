@@ -4,8 +4,10 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
-import Registration from "./pages/Registration"
+import Registration from "./pages/Registration";
 import Cart from "./pages/Cart";
+import Admin from "./Admin/AdminDashboard";
+import AdminProducts from "./Admin/AdminProducts";
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/admin/dashboard" element={<Admin />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
         </Routes>
         <Footer />
       </BrowserRouter>
