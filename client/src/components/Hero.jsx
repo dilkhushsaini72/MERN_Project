@@ -3,7 +3,7 @@ import Hero_img from "../assets/Quickzy.png";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col-reverse rounded-lg max-w-[1380px] mx-auto md:flex-row items-center justify-between px-4 md:px-10 py-8 bg-gradient-to-r from-green-300  m-5 to-white">
+    <div className="flex flex-col-reverse rounded-lg md:flex-row items-center justify-between px-4 md:px-10 py-8 bg-gradient-to-r from-green-300 m-5 to-white">
       {/* Text Section */}
       <section className="w-full md:w-1/2 text-center md:text-left">
         <div className="mb-6">
