@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../assets/Quickzy.png";
 import { Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   return (
@@ -13,6 +13,21 @@ const Navbar = () => {
           <Link to={"/"}>
             <img src={logo} alt="LOGO" className="w-full h-auto" />
           </Link>
+        </div>
+
+        {/* /* search */}
+
+        <div className="relative w-full h-7 mx-10">
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search Items.."
+            className="outline-none px-2 w-full rounded-sm h-full bg-zinc-50 border border-zinc-200"
+          />
+          <div className="absolute right-[-20px] top-0 text-sm h-full bg-black flex items-center justify-center p-1 rounded-r text-white cursor-pointer -z-0">
+            <FaSearch />
+          </div>
         </div>
 
         {/* Desktop Nav Links */}

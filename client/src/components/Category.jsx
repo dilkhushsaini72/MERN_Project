@@ -28,7 +28,7 @@ const Category = () => {
         <div className="flex sm:justify-center overflow-x-auto">
           {categories.map((cat, index) => (
             <div
-            title={cat.name}
+              title={cat.name}
               key={index}
               className="flex flex-col items-center min-w-[80px] text-sm text-gray-800 hover:text-green-600 hover:cursor-pointer "
             >
