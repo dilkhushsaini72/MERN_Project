@@ -32,7 +32,7 @@ const Cart = () => {
             >
               {/* Product Image */}
               <img
-                src="https://via.placeholder.com/60"
+                src="asdf"
                 alt={`Product ${item}`}
                 className="w-16 h-16 object-cover rounded bg-gray-100"
               />

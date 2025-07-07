@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { RiAdminLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
@@ -7,10 +7,20 @@ import { IoExitOutline } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa";
 
 const Slidebar = () => {
+  const arrowRef = useRef();
+
+  const arrowClickHandle = () => {
+    const sidebar = arrowRef.current;
+    sidebar.classList.toggle("translate-x-0");
+  };
+
   return (
-    <div className="relative w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen">
-      <span className="md:hidden absolute -right-3 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50">
-        <FaArrowRight />
+    <div
+      ref={arrowRef}
+      className="fixed sm:relative transition-transform  -translate-x-58 sm:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10"
+    >
+      <span className="sm:hidden absolute -right-3 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50">
+        <FaArrowRight onClick={arrowClickHandle} />
       </span>
       <div className="pt-5">
         <h2 className="text-2xl flex justify-center items-center">
