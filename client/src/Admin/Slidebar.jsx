@@ -4,10 +4,14 @@ import { NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
+import { FaArrowRight } from "react-icons/fa";
 
 const Slidebar = () => {
   return (
-    <div className="w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen">
+    <div className="relative w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen">
+      <span className="md:hidden absolute -right-3 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50">
+        <FaArrowRight />
+      </span>
       <div className="pt-5">
         <h2 className="text-2xl flex justify-center items-center">
           <span>Admin Panel</span>

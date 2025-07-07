@@ -8,15 +8,18 @@ const AdminProducts = () => {
       <Slidebar />
       <div className="w-screen bg-amber-50 px-5">
         <h2 className="text-2xl mt-5 font-bold">Manage Products 📊</h2>
-        <button className="bg-green-500 px-3 py-2 font-bold text-white rounded mt-3 flex  items-center gap-3">
+        <button className="bg-green-500 hover:bg-green-600 cursor-pointer px-3 py-2 font-bold text-white rounded mt-3 flex  items-center gap-3">
           <span>
             <FaPlusSquare />
           </span>
-          Add Products
+          <span>Add Products</span>
         </button>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, idx) => (
-            <div className="border border-zinc-200 hover:shadow-lg rounded bg-white p-4 ">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, idx) => (
+            <div
+              key={idx}
+              className="border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
+            >
               <div className="h-50">
                 <img className="border h-full" src="ka" alt="products img" />
               </div>
@@ -26,13 +29,13 @@ const AdminProducts = () => {
               <div className="flex justify-between mt-4">
                 <button
                   title="Edit"
-                  className="group-hover:block relative text-xl cursor-pointer hover:scale-120 text-sky-400"
+                  className="group-hover:block relative  cursor-pointer hover:scale-120 text-sky-400"
                 >
                   <FaEdit />
                 </button>
                 <button
                   title="Delete"
-                  className="text-xl cursor-pointer scale-105 hover:scale-120 text-red-500"
+                  className=" cursor-pointer scale-105 hover:scale-120 text-red-500"
                 >
                   <FaTrashAlt />
                 </button>
