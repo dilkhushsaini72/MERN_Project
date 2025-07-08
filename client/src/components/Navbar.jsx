@@ -3,7 +3,7 @@ import logo from "../assets/Quickzy.png";
 import { Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
-import { IoChatbubbleEllipses } from "react-icons/io5";
+import { MdContactSupport } from "react-icons/md";
 
 const Navbar = () => {
   return (
@@ -44,9 +44,12 @@ const Navbar = () => {
           </Link>
         </ul>
       </div>
-      <span className="fixed bottom-10 right-10 text-green-500 hover:text-green-600 transition-all hover:scale-125 cursor-pointer">
-        <IoChatbubbleEllipses size={40} />
-      </span>
+      <Link to={"/query"}>
+        <span
+         className="fixed bottom-10 right-10 text-green-500 hover:text-green-600 transition-all hover:scale-125 cursor-pointer">
+          <MdContactSupport size={40} />
+        </span>
+      </Link>
     </nav>
   );
 };

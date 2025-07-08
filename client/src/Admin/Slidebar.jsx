@@ -5,6 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { SiHelpdesk } from "react-icons/si";
 
 const Slidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +59,18 @@ const Slidebar = () => {
           >
             <span className="px-10 flex items-center gap-2">
               Manage Products <MdProductionQuantityLimits />
+            </span>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "bg-gradient-to-r rounded text-green-500 font-bold from-[#ffffff65] "
+                : "text-white"
+            }
+            to={"/admin/query"}
+          >
+            <span className="px-10 flex items-center gap-2">
+              User Query <SiHelpdesk />
             </span>
           </NavLink>
           <NavLink

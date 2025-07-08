@@ -1,7 +1,7 @@
 import React from "react";
 import Slidebar from "./Slidebar";
 
-const AdminDashboard = () => {
+const AdminQuery = () => {
   return (
     <div className="flex max-w-[1520px] mx-auto">
       <Slidebar />
@@ -16,4 +16,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminQuery;

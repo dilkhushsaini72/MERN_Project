@@ -6,7 +6,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
   
   return (
-    <div className="flex">
+    <div className="flex max-w-[1520px] mx-auto">
       <Slidebar />
       <div className="w-screen bg-amber-50 px-5">
         <h2 className="text-2xl mt-5 font-bold">Edit Product</h2>

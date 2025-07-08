@@ -10,6 +10,8 @@ import Admin from "./Admin/AdminDashboard";
 import AdminProducts from "./Admin/AdminProducts";
 import AddProduct from "./Admin/AddProduct";
 import EditProduct from "./Admin/EditProduct";
+import UserQuery from "./pages/UserQuery";
+import AdminQuery from "./Admin/AdminQuery";
 
 const App = () => {
   return (
@@ -21,11 +23,13 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/query" element={<UserQuery />} />
 
           <Route path="/admin/dashboard" element={<Admin />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin/edit-product" element={<EditProduct />} />
+          <Route path="/admin/query" element={<AdminQuery />} />
 
         </Routes>
         <Footer />
