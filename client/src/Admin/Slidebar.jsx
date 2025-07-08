@@ -1,26 +1,32 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { RiAdminLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const Slidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const arrowRef = useRef();
 
   const arrowClickHandle = () => {
     const sidebar = arrowRef.current;
     sidebar.classList.toggle("translate-x-0");
+    setIsOpen(!isOpen);
   };
 
   return (
     <div
       ref={arrowRef}
-      className="fixed sm:relative transition-transform  -translate-x-58 sm:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10"
+      className="fixed sm:sticky top-[64px] self-start transition-transform  -translate-x-58 sm:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10 cursor-pointer"
     >
-      <span className="sm:hidden absolute -right-3 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50">
-        <FaArrowRight onClick={arrowClickHandle} />
+      <span
+        onClick={arrowClickHandle}
+        className="sm:hidden absolute -right-5 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50"
+      >
+        {isOpen ? <FaArrowLeft /> : <FaArrowRight />}
       </span>
       <div className="pt-5">
         <h2 className="text-2xl flex justify-center items-center">
@@ -55,7 +61,7 @@ const Slidebar = () => {
             </span>
           </NavLink>
           <NavLink
-            className="font-semibold text-red-500 hover:underline"
+            className="absolute bottom-30 text-xl font-semibold text-red-500 hover:underline"
             to={"/"}
           >
             <span className="px-10 flex items-center gap-2">

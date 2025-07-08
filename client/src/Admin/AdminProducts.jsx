@@ -1,8 +1,11 @@
 import React from "react";
 import Slidebar from "./Slidebar";
 import { FaPlusSquare, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AdminProducts = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex">
       <Slidebar />
@@ -12,7 +15,9 @@ const AdminProducts = () => {
           <span>
             <FaPlusSquare />
           </span>
-          <span>Add Products</span>
+          <span onClick={() => navigate("/admin/add-product")}>
+            Add Products
+          </span>
         </button>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, idx) => (

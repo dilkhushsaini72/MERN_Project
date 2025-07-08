@@ -8,6 +8,7 @@ import Registration from "./pages/Registration";
 import Cart from "./pages/Cart";
 import Admin from "./Admin/AdminDashboard";
 import AdminProducts from "./Admin/AdminProducts";
+import AddProduct from "./Admin/AddProduct";
 
 const App = () => {
   return (
@@ -19,8 +20,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/cart" element={<Cart />} />
+
           <Route path="/admin/dashboard" element={<Admin />} />
           <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/add-product" element={<AddProduct />} />
         </Routes>
         <Footer />
       </BrowserRouter>
