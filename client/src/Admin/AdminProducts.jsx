@@ -33,6 +33,7 @@ const AdminProducts = () => {
               <div className="text-2xl font-bold text-green-500">₹99</div>
               <div className="flex justify-between mt-4">
                 <button
+                  onClick={() => navigate("/admin/edit-product")}
                   title="Edit"
                   className="group-hover:block relative  cursor-pointer hover:scale-120 text-sky-400"
                 >
