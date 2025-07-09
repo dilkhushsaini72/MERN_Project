@@ -3,7 +3,6 @@ const router = require("./routes/api");
 const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config({ silent: true });
-// const PORT = 3000;
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -11,6 +10,7 @@ mongoose
   .then(() => console.log("MongoDB: connected"))
   .catch((err) => console.log(err));
 
+app.use(express.json());
 app.use("/api", router);
 
 app.listen(PORT, () => {
