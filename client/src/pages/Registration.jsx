@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const registration = () => {
+  const [regData, setRegData] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
+
+  const inputChange = (e) => {
+    setRegData({ ...regData, [e.target.name]: e.target.value });
+  };
 
   const closeBtnHandle = () => {
     navigate("/");
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = regData;
+
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+      alert("All fields are required!");
+    } else {
+      console.log("Submitted:", regData);
+    }
+
+    fetch("/api/reg", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(regData),
+    });
+  };
+
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg relative mx-4">
@@ -21,30 +45,35 @@ const registration = () => {
             Register New User..
           </h2>
         </div>
-        <form className="flex flex-col">
-          <label className="mt-2" htmlFor="email">Full Name</label>
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label className="mt-2" htmlFor="email">
+            Full Name
+          </label>
           <input
             type="text"
             name="name"
-            id=""
+            value={regData.name}
             placeholder="John Doe"
             className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
+            onChange={inputChange}
           />
           <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
-            id="email"
+            value={regData.email}
             placeholder="example@gmail.com"
             className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
+            onChange={inputChange}
           />
           <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
-            id="pass"
+            value={regData.password}
             placeholder="********"
             className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
+            onChange={inputChange}
           />
           <button className="bg-green-500 rounded-lg mt-6 py-1 font-bold text-white hover:bg-green-700 cursor-pointer">
             Register

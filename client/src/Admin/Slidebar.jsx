@@ -70,7 +70,7 @@ const Slidebar = () => {
             to={"/admin/query"}
           >
             <span className="px-10 flex items-center gap-2">
-              User Query <SiHelpdesk />
+              Manage Query <SiHelpdesk />
             </span>
           </NavLink>
           <NavLink

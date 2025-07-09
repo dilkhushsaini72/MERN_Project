@@ -3,13 +3,64 @@ import Slidebar from "./Slidebar";
 
 const AdminQuery = () => {
   return (
-    <div className="flex max-w-[1520px] mx-auto">
+    <div className="flex">
       <Slidebar />
-      <div className="w-screen bg-amber-50 px-5">
-        <h2 className="text-2xl mt-5 ml-3 font-bold">Admin Dashboard 📊</h2>
-        <div className="bg-white p-5 rounded-xl shadow-lg mt-5 w-full">
-          <h2 className="text-xl font-semibold">Total Products</h2>
-          <span className="font-bold text-2xl text-green-500">32</span>
+      <div className="flex-1 p-10 bg-gray-50 min-h-screen">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">
+          Query Management 📧
+        </h1>
+
+        <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  S.No
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  User Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Query
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Email-ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Action-1
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Action-2
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                <td class="px-6 py-4">1</td>
+                <td class="px-6 py-4">Devansu</td>
+                <td class="px-6 py-4">MERN</td>
+                <td class="px-6 py-4">Mail@gmail.com</td>
+                <td class="px-6 py-4">
+                  <button className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                    Unread
+                  </button>
+                </td>
+                <td class="px-6 py-4">
+                  <button className="text-xs bg-green-600 text-white px-3 py-1 rounded">
+                    Reply
+                  </button>
+                </td>
+                <td class="px-6 py-4">
+                  <button className="text-xs bg-red-500 text-white px-3 py-1 rounded">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
