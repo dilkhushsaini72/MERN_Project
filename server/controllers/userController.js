@@ -30,7 +30,19 @@ const regController = async (req, res) => {
 // Login Controller
 const loginController = async (req, res) => {
   try {
-    console.log(req.body);
+    const { email, password } = req.body;
+
+    const checkUser = await userModel.findOne({ email });
+    if (!checkUser) {
+      return res.status(400).send({ message: "Email not found *" });
+    }
+
+    const checkPassword = await bcrypt.compare(password, checkUser.password);
+    if (!checkPassword) {
+      return res.status(401).send({ message: "Incorrect password" });
+    }
+
+    res.status(200).send({ message: "Login successfully", data: checkUser });
   } catch (error) {
     res.status(500).send({ message: "Server Error", error });
   }

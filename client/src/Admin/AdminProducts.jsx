@@ -2,9 +2,55 @@ import React from "react";
 import Slidebar from "./Slidebar";
 import { FaPlusSquare, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const AdminProducts = () => {
+  const [productData, setProductData] = useState([]);
   const navigate = useNavigate();
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/show-product");
+      const result = await response.json();
+
+      setProductData(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const deleteProduct = async (id) => {
+    const response = await fetch(`/api/delete-product/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      toast.success(result.message);
+      fetchData();
+    }
+  };
+
+  const updateProduct = async (id) => {
+    try {
+      const response = await fetch(`/api/update-product/:${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(),
+      });
+    } catch (error) {}
+
+    navigate("/admin/edit-product");
+  };
 
   return (
     <div className="flex max-w-[1520px] mx-auto">
@@ -19,8 +65,8 @@ const AdminProducts = () => {
             Add Products
           </span>
         </button>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, idx) => (
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+          {productData.map((item, idx) => (
             <div
               key={idx}
               className="border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
@@ -28,18 +74,23 @@ const AdminProducts = () => {
               <div className="h-50">
                 <img className="border h-full" src="ka" alt="products img" />
               </div>
-              <h2 className="text-2xl font-semibold">Product name</h2>
-              <div className="text-zinc-600 ">Category Name</div>
-              <div className="text-2xl font-bold text-green-500">₹99</div>
+              <h2 className="text-xl capitalize font-semibold">
+                {item.productName}
+              </h2>
+              <div className="text-zinc-600 ">{item.productCat}</div>
+              <div className="text-2xl font-bold text-green-500">
+                ₹{item.productPrice}
+              </div>
               <div className="flex justify-between mt-4">
                 <button
-                  onClick={() => navigate("/admin/edit-product")}
+                  onClick={() => updateProduct(item._id)}
                   title="Edit"
                   className="group-hover:block relative  cursor-pointer hover:scale-120 text-sky-400"
                 >
                   <FaEdit />
                 </button>
                 <button
+                  onClick={() => deleteProduct(item._id)}
                   title="Delete"
                   className=" cursor-pointer scale-105 hover:scale-120 text-red-500"
                 >

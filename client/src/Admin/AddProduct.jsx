@@ -1,45 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import Slidebar from "./Slidebar";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
   const navigate = useNavigate();
-  
+  const [product, setProduct] = useState({
+    productName: "",
+    productPrice: "",
+    productCat: "",
+  });
+
+  const { productName, productPrice, productCat } = product;
+
+  const productChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const productSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/create-product", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success(result.message);
+
+        navigate("/admin/products")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex max-w-[1520px] mx-auto">
       <Slidebar />
       <div className="w-screen bg-amber-50 px-5">
         <h2 className="text-2xl mt-5 font-bold">Add Product</h2>
-        <button onClick={() => navigate("/admin/products")} className="bg-gray-200 px-4 py-2 font-bold mt-4 rounded hover:bg-gray-300 ">
+        <button
+          onClick={() => navigate("/admin/products")}
+          className="bg-gray-200 px-4 py-2 font-bold mt-4 rounded hover:bg-gray-300 "
+        >
           Back
         </button>
         <div className="max-w-2xl bg-white mx-auto p-4 rounded-sm shadow-lg">
-          <form className="flex flex-col">
-            <label className="my-2" htmlFor="">
+          <form onSubmit={productSubmit} className="flex flex-col">
+            <label className="my-2" htmlFor="productName">
               Product Name
             </label>
             <input
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
               type="text"
               placeholder="Product name"
+              name="productName"
+              value={productName}
+              onChange={productChange}
+              required
             />
-            <label className="my-2" htmlFor="">
+            <label className="my-2" htmlFor="productPrice">
               Price
             </label>
             <input
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
               type="number"
-              name="price"
+              name="productPrice"
               id="price"
               placeholder="₹99"
+              value={productPrice}
+              onChange={productChange}
+              required
             />
-            <label className="my-2" htmlFor="">
+            <label className="my-2" htmlFor="productCat">
               Category
             </label>
             <select
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
-              name=""
-              id=""
+              name="productCat"
+              value={productCat}
+              onChange={productChange}
+              required
             >
               <option value="">---select---</option>
               <option value="Cafe">Cafe</option>

@@ -45,7 +45,7 @@ const Slidebar = () => {
             }
             to={"/admin/dashboard"}
           >
-            <span className="px-10 flex items-center gap-2 ">
+            <span className="px-10 hover:scale-104 flex items-center gap-2 ">
               Dashboard <RxDashboard />
             </span>
           </NavLink>
@@ -57,7 +57,7 @@ const Slidebar = () => {
             }
             to={"/admin/products"}
           >
-            <span className="px-10 flex items-center gap-2">
+            <span className="px-10 hover:scale-104 flex items-center gap-2">
               Manage Products <MdProductionQuantityLimits />
             </span>
           </NavLink>
@@ -69,7 +69,7 @@ const Slidebar = () => {
             }
             to={"/admin/query"}
           >
-            <span className="px-10 flex items-center gap-2">
+            <span className="px-10 hover:scale-104 flex items-center gap-2">
               Manage Query <SiHelpdesk />
             </span>
           </NavLink>

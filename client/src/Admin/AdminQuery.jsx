@@ -10,50 +10,50 @@ const AdminQuery = () => {
           Query Management 📧
         </h1>
 
-        <div class="relative overflow-x-auto">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   S.No
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   User Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Query
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Email-ID
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Status
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Action-1
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Action-2
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                <td class="px-6 py-4">1</td>
-                <td class="px-6 py-4">Devansu</td>
-                <td class="px-6 py-4">MERN</td>
-                <td class="px-6 py-4">Mail@gmail.com</td>
-                <td class="px-6 py-4">
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                <td className="px-6 py-4">1</td>
+                <td className="px-6 py-4">Devansu</td>
+                <td className="px-6 py-4">MERN</td>
+                <td className="px-6 py-4">Mail@gmail.com</td>
+                <td className="px-6 py-4">
                   <button className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
                     Unread
                   </button>
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                   <button className="text-xs bg-green-600 text-white px-3 py-1 rounded">
                     Reply
                   </button>
                 </td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">
                   <button className="text-xs bg-red-500 text-white px-3 py-1 rounded">
                     Delete
                   </button>

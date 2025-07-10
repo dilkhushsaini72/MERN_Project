@@ -1,10 +1,41 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [isShow, setIsShow] = useState(false);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { email, password } = loginData;
+    if (!email || !password) {
+      return toast.error("Enter Email or password");
+    } 
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      toast.success(result.message);
+      navigate("/");
+    } else {
+      toast.error(result.message);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-lg relative mx-4">
@@ -19,11 +50,13 @@ const Login = () => {
             Login to continue..
           </h2>
         </div>
-        <form className="flex flex-col">
+        <form onSubmit={handleSubmit} className="flex flex-col">
           <label className="mt-2" htmlFor="email">
             Email
           </label>
           <input
+            onChange={handleChange}
+            value={loginData.email}
             type="email"
             name="email"
             id="email"
@@ -33,6 +66,8 @@ const Login = () => {
           <label htmlFor="password">Password</label>
           <div className="relative w-full">
             <input
+              onChange={handleChange}
+              value={loginData.password}
               type={isShow ? "text" : "password"}
               name="password"
               id="pass"
