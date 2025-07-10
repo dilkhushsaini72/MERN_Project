@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const registration = () => {
@@ -13,22 +14,31 @@ const registration = () => {
     navigate("/");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { name, email, password } = regData;
 
     if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
-      alert("All fields are required!");
+      toast.error("All fields are required!");
     } else {
-      console.log("Submitted:", regData);
-    }
+      const response = await fetch("/api/reg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(regData),
+      });
 
-    fetch("/api/reg", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(regData),
-    });
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success(result.message);
+        navigate("/login")
+        setRegData({ name: "", email: "", password: "" });
+      } else {
+        toast.error(result.message);
+      }
+
+    }
   };
 
   return (
