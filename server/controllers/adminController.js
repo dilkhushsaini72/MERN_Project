@@ -45,10 +45,19 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// Get single Product Data
+const getsingleproduct = async (req, res) => {
+  try {
+    const Id = req.params.id;
+
+    const Product = await productModel.findById(Id);
+    res.status(200).send({ message: "Successfully received", data: Product });
+  } catch (error) {}
+};
+
 // Update products controller
 const updateProduct = async (req, res) => {
   try {
-    console.log(req.params.id);
   } catch (error) {
     res.status(500).send({ message: "Server Error", error });
   }
@@ -59,4 +68,5 @@ module.exports = {
   showProduct,
   deleteProduct,
   updateProduct,
+  getsingleproduct,
 };

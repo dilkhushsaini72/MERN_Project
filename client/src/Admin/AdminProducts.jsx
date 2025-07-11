@@ -40,17 +40,9 @@ const AdminProducts = () => {
     }
   };
 
-  const updateProduct = async (id) => {
-    try {
-      const response = await fetch(`/api/update-product/:${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(),
-      });
-    } catch (error) {}
-
-    navigate("/admin/edit-product");
-  };
+  // const editBtnHandle = async (id) => {
+  //   navigate(`/admin/edit-product/${id}`);
+  // };
 
   return (
     <div className="flex max-w-[1520px] mx-auto">
@@ -83,7 +75,7 @@ const AdminProducts = () => {
               </div>
               <div className="flex justify-between mt-4">
                 <button
-                  onClick={() => updateProduct(item._id)}
+                  onClick={() => navigate(`/admin/edit-product/${item._id}`)}
                   title="Edit"
                   className="group-hover:block relative  cursor-pointer hover:scale-120 text-sky-400"
                 >

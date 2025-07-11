@@ -6,6 +6,7 @@ router.post("/reg", userController.regController);
 router.post("/login", userController.loginController);
 router.post("/create-product", adminController.createProduct);
 router.get("/show-product", adminController.showProduct);
+router.get("/getsingleproduct/:id", adminController.getsingleproduct);
 router.delete("/delete-product/:id", adminController.deleteProduct);
 router.put("/update-product/:id", adminController.updateProduct);
 

@@ -1,43 +1,34 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const registration = () => {
-  const [regData, setRegData] = useState({ name: "", email: "", password: "" });
-  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const inputChange = (e) => {
-    setRegData({ ...regData, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
 
   const closeBtnHandle = () => {
     navigate("/");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { name, email, password } = regData;
-
-    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
-      toast.error("All fields are required!");
+  const formSubmitHandle = async (data) => {
+    const response = await fetch("/api/reg", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (response.ok) {
+      toast.success(result.message);
+      navigate("/login");
     } else {
-      const response = await fetch("/api/reg", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(regData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        toast.success(result.message);
-        navigate("/login")
-        setRegData({ name: "", email: "", password: "" });
-      } else {
-        toast.error(result.message);
-      }
-
+      toast.error(result.message);
     }
   };
 
@@ -55,36 +46,64 @@ const registration = () => {
             Register New User..
           </h2>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <form
+          onSubmit={handleSubmit(formSubmitHandle)}
+          className="flex flex-col"
+        >
           <label className="mt-2" htmlFor="email">
             Full Name
           </label>
           <input
             type="text"
             name="name"
-            value={regData.name}
             placeholder="John Doe"
-            className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
-            onChange={inputChange}
+            className={`outline-none border-b-2 border-gray-500 pb-1 ${
+              errors.name ? "border-red-500" : " focus:border-green-500"
+            }`}
+            {...register("name", {
+              required: { value: true, message: "Please Enter your name*" },
+            })}
           />
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-500">{errors.name.message} </p>
+          )}
           <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
-            value={regData.email}
             placeholder="example@gmail.com"
-            className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
-            onChange={inputChange}
+            className={`outline-none border-b-2 border-gray-500 pb-1 ${
+              errors.email ? "border-red-500" : " focus:border-green-500"
+            }`}
+            {...register("email", {
+              required: { value: true, message: "Please Enter your email*" },
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format",
+              },
+            })}
           />
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+          )}
           <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
-            value={regData.password}
             placeholder="********"
-            className="outline-none border-b-2 border-gray-500 pb-1 focus:border-green-500"
-            onChange={inputChange}
+            className={`outline-none border-b-2 border-gray-500 pb-1 ${
+              errors.password ? "border-red-500" : " focus:border-green-500"
+            }`}
+            {...register("password", {
+              required: { value: true, message: "Password is required*" },
+              minLength: { value: 8, message: "Password should be 8 digits*" },
+            })}
           />
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-500">
+              {errors.password.message}
+            </p>
+          )}
           <button className="bg-green-500 rounded-lg mt-6 py-1 font-bold text-white hover:bg-green-700 cursor-pointer">
             Register
           </button>
