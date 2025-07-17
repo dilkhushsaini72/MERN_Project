@@ -40,10 +40,6 @@ const AdminProducts = () => {
     }
   };
 
-  // const editBtnHandle = async (id) => {
-  //   navigate(`/admin/edit-product/${id}`);
-  // };
-
   return (
     <div className="flex max-w-[1520px] mx-auto">
       <Slidebar />
@@ -61,7 +57,7 @@ const AdminProducts = () => {
           {productData.map((item, idx) => (
             <div
               key={idx}
-              className="border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
+              className="relative border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
             >
               <div className="h-50">
                 <img className="border h-full" src="ka" alt="products img" />
@@ -72,6 +68,13 @@ const AdminProducts = () => {
               <div className="text-zinc-600 ">{item.productCat}</div>
               <div className="text-2xl font-bold text-green-500">
                 ₹{item.productPrice}
+                <span>
+                  {item.productStatus === "Out-of-stock" && (
+                    <p className="text-red-500 capitalize absolute bottom-3 left-15 text-xl font-extrabold">
+                      {item.productStatus}
+                    </p>
+                  )}
+                </span>
               </div>
               <div className="flex justify-between mt-4">
                 <button

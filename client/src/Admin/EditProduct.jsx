@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slidebar from "./Slidebar";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditProduct = () => {
-  const [productData, setProductData] = useState({});
+  const [productData, setProductData] = useState({
+    productName: "",
+    productPrice: "",
+    productCat: "",
+    productStatus: "",
+  });
 
   const navigate = useNavigate();
 
@@ -20,11 +26,32 @@ const EditProduct = () => {
     }
   };
 
-  const changeHandle = (e) => {};
+  const { productName, productPrice, productCat, productStatus } = productData;
 
   useEffect(() => {
     fetchSingleData();
   }, []);
+
+  const handleChange = (e) => {
+    setProductData({ ...productData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(`/api/update-product`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      toast.success(result.message);
+      navigate("/admin/products");
+    }
+  };
 
   return (
     <div className="flex max-w-[1520px] mx-auto">
@@ -38,7 +65,7 @@ const EditProduct = () => {
           Back
         </button>
         <div className="max-w-2xl bg-white mx-auto p-4 rounded-sm shadow-lg">
-          <form className="flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <label className="my-2" htmlFor="">
               Product Name
             </label>
@@ -46,8 +73,9 @@ const EditProduct = () => {
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
               type="text"
               placeholder="Product name"
-              value={productData.productName}
-              onChange={changeHandle}
+              name="productName"
+              value={productName}
+              onChange={handleChange}
             />
             <label className="my-2" htmlFor="">
               Price
@@ -55,20 +83,20 @@ const EditProduct = () => {
             <input
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
               type="number"
-              name="price"
               id="price"
               placeholder="₹99"
-              value={productData.productPrice}
-              onChange={changeHandle}
+              name="productPrice"
+              value={productPrice}
+              onChange={handleChange}
             />
             <label className="my-2" htmlFor="">
               Category
             </label>
             <select
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
-              name=""
-              value={productData.productCat}
-              onChange={changeHandle}
+              name="productCat"
+              value={productCat}
+              onChange={handleChange}
             >
               <option value="">---select---</option>
               <option value="Cafe">Cafe</option>
@@ -84,12 +112,12 @@ const EditProduct = () => {
             </label>
             <select
               className="outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
-              name=""
-              value={productData.productStatus}
-              onChange={changeHandle}
+              name="productStatus"
+              value={productStatus}
+              onChange={handleChange}
             >
-              <option value="in-stock">In-Stock</option>
               <option value="out-of-stock">Out-OF-Stock</option>
+              <option value="In-stock">In-Stock</option>
             </select>
             <label className="my-2" htmlFor="img">
               Prodcut Image

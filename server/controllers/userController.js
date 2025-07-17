@@ -1,3 +1,5 @@
+const productModel = require("../models/productModel");
+const queryModel = require("../models/queryModel");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
@@ -48,7 +50,38 @@ const loginController = async (req, res) => {
   }
 };
 
+// Get Trending Product controller
+const showTrendingController = async (req, res) => {
+  try {
+    const Product = await productModel.find({ productStatus: "In-stock" });
+    res.status(200).send({ data: Product });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// user Query controller
+
+const userQueryController = async (req, res) => {
+  try {
+    const { name, email, query } = req.body;
+    const userQuer = new queryModel({
+      name,
+      email,
+      query,
+    });
+
+    await userQuer.save();
+
+    res.status(201).send({ message: "Your Query Submitted.." });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
 module.exports = {
   regController,
   loginController,
+  showTrendingController,
+  userQueryController,
 };

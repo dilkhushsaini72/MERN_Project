@@ -1,6 +1,7 @@
 // create product controller
 
 const productModel = require("../models/productModel");
+const queryModel = require("../models/queryModel");
 
 const createProduct = async (req, res) => {
   try {
@@ -58,9 +59,36 @@ const getsingleproduct = async (req, res) => {
 // Update products controller
 const updateProduct = async (req, res) => {
   try {
+    const { _id } = req.body;
+    const Product = req.body;
+
+    res.status(200).send({ message: "Product Updated Successfully" });
+
+    await productModel.findByIdAndUpdate(_id, Product);
   } catch (error) {
     res.status(500).send({ message: "Server Error", error });
   }
+};
+
+// Show query on Admin panel
+
+const showQueryController = async (req, res) => {
+  try {
+    const Queries = await queryModel.find();
+    res.status(200).send({ data: Queries });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// Delete Query controller
+const deleteQueryController = async (req, res) => {
+  try {
+    const Id = req.body.id;
+
+    await queryModel.findByIdAndDelete(Id);
+    res.status(200).send({ message: "Query Deleted.." });
+  } catch (error) {}
 };
 
 module.exports = {
@@ -69,4 +97,6 @@ module.exports = {
   deleteProduct,
   updateProduct,
   getsingleproduct,
+  showQueryController,
+  deleteQueryController,
 };
