@@ -12,6 +12,7 @@ import AddProduct from "./Admin/AddProduct";
 import EditProduct from "./Admin/EditProduct";
 import UserQuery from "./pages/UserQuery";
 import AdminQuery from "./Admin/AdminQuery";
+import ReplyQuery from "./Admin/ReplyQuery";
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin/edit-product/:id" element={<EditProduct />} />
           <Route path="/admin/query" element={<AdminQuery />} />
-
+          <Route path="/admin/reply-query/:id" element={<ReplyQuery />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -21,11 +21,11 @@ const Slidebar = () => {
   return (
     <div
       ref={arrowRef}
-      className="fixed sm:sticky top-[64px] self-start transition-transform  -translate-x-58 sm:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10 cursor-pointer"
+      className="fixed lg:sticky top-[64px] self-start transition-transform  -translate-x-58 lg:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10 cursor-pointer"
     >
       <span
         onClick={arrowClickHandle}
-        className="sm:hidden absolute -right-5 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50"
+        className="lg:hidden absolute -right-5 bg-purple-900 top-4 rounded-full p-2 outline-2 outline-amber-50"
       >
         {isOpen ? <FaArrowLeft /> : <FaArrowRight />}
       </span>

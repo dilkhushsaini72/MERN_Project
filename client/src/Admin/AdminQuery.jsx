@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slidebar from "./Slidebar";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AdminQuery = () => {
   const [queryData, setQueryData] = useState([]);
@@ -77,9 +78,11 @@ const AdminQuery = () => {
                       </span>
                     </td>
                     <td className="px-2 sm:px-4 py-2">
-                      <button className="text-xs bg-green-600 hover:bg-green-700 text-white font-semibold px-3 py-1 rounded">
-                        Reply
-                      </button>
+                      <Link to={`/admin/reply-query/${item._id}`}>
+                        <button className="text-xs bg-green-600 hover:bg-green-700 text-white font-semibold px-3 py-1 rounded">
+                          Reply
+                        </button>
+                      </Link>
                     </td>
                     <td className="px-2 sm:px-4 py-2">
                       <button
