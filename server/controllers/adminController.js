@@ -2,6 +2,7 @@
 
 const productModel = require("../models/productModel");
 const queryModel = require("../models/queryModel");
+const nodemailer = require("nodemailer");
 
 const createProduct = async (req, res) => {
   try {
@@ -88,7 +89,51 @@ const deleteQueryController = async (req, res) => {
 
     await queryModel.findByIdAndDelete(Id);
     res.status(200).send({ message: "Query Deleted.." });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// Show single query controller
+const getSingleQuery = async (req, res) => {
+  try {
+    const Id = req.params.id;
+    await queryModel.findByIdAndUpdate(Id, { queryStatus: "Read" });
+    const Query = await queryModel.findById(Id);
+    res.status(200).send({ data: Query });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// Reply query Controller
+
+const replyQueryController = async (req, res) => {
+  try {
+    const { To, Sub, Body } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: "sainidilkhush019@gmail.com",
+        pass: "wnygvpcucpraifxl",
+      },
+    });
+
+    const info = transporter.sendMail({
+      from: '"Quizy.com" <sainidilkhush019@gmail.com>',
+      to: To,
+      subject: Sub,
+      text: Body,
+      html: Body,
+    });
+
+    res.status(200).send({ message: "Reply Sent!!" });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
 };
 
 module.exports = {
@@ -99,4 +144,6 @@ module.exports = {
   getsingleproduct,
   showQueryController,
   deleteQueryController,
+  getSingleQuery,
+  replyQueryController,
 };

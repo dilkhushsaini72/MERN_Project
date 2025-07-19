@@ -21,7 +21,7 @@ const Slidebar = () => {
   return (
     <div
       ref={arrowRef}
-      className="fixed lg:sticky top-[64px] self-start transition-transform  -translate-x-58 lg:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-screen z-10 cursor-pointer"
+      className="fixed lg:sticky top-[64px] self-start transition-transform  -translate-x-58 lg:translate-x-0 w-60 min-w-60 bg-gradient-to-b to-blue-900 from-purple-900 text-white font-semibold h-[calc(100vh-64px)] z-10 cursor-pointer"
     >
       <span
         onClick={arrowClickHandle}
@@ -74,7 +74,7 @@ const Slidebar = () => {
             </span>
           </NavLink>
           <NavLink
-            className="absolute bottom-30 text-xl font-semibold text-red-500 hover:underline"
+            className="absolute bottom-10 text-xl font-semibold text-red-500 hover:underline"
             to={"/"}
           >
             <span className="px-10 flex items-center gap-2">

@@ -14,5 +14,7 @@ router.delete("/delete-product/:id", adminController.deleteProduct);
 router.put("/update-product", adminController.updateProduct);
 router.get("/show-query",adminController.showQueryController)
 router.delete("/delete-query",adminController.deleteQueryController)
+router.get("/single-query/:id",adminController.getSingleQuery)
+router.post("/reply-query",adminController.replyQueryController)
 
 module.exports = router;
