@@ -60,7 +60,11 @@ const AdminProducts = () => {
               className="relative border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
             >
               <div className="h-50">
-                <img className="border h-full" src="ka" alt="products img" />
+                <img
+                  className="border h-full"
+                  src={`/uploads/${item.productImg}`}
+                  alt="products img"
+                />
               </div>
               <h2 className="text-xl capitalize font-semibold">
                 {item.productName}

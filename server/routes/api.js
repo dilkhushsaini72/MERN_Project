@@ -10,7 +10,7 @@ router.post("/userquery", userController.userQueryController);
 
 router.post(
   "/create-product",
-  upload.single("image"),
+  upload.single("productImg"),
   adminController.createProduct
 );
 router.get("/show-product", adminController.showProduct);

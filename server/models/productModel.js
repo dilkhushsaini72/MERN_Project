@@ -14,6 +14,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    productImg: {
+      type: String,
+      required: true,
+    },
     productStatus: {
       type: String,
       default: "Out-of-stock",

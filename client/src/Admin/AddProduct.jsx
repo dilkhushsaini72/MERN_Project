@@ -9,33 +9,47 @@ const AddProduct = () => {
     productName: "",
     productPrice: "",
     productCat: "",
+    productImg: null,
   });
 
-  const { productName, productPrice, productCat } = product;
+  const { productName, productPrice, productCat, productImg } = product;
 
   const productChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    const { name, value, files } = e.target;
+
+    if (name === "productImg") {
+      setProduct({ ...product, productImg: files[0] });
+    } else {
+      setProduct({ ...product, [name]: value });
+    }
   };
 
   const productSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("productName", productName);
+    formData.append("productPrice", productPrice);
+    formData.append("productCat", productCat);
+    formData.append("productImg", productImg);
+
     try {
       const response = await fetch("/api/create-product", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
+        body: formData, // no headers for FormData
       });
 
       const result = await response.json();
 
       if (response.ok) {
         toast.success(result.message);
-
-        navigate("/admin/products")
+        navigate("/admin/products");
+      } else {
+        toast.error(result.message || "Failed to add product");
       }
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -94,16 +108,17 @@ const AddProduct = () => {
               <option value="Fresh">Fresh</option>
               <option value="Electronics">Electronics</option>
               <option value="Mobile">Mobile</option>
-              <option value="Bueaty">Bueaty</option>
+              <option value="Beauty">Beauty</option>
             </select>
-            <label className="my-2" htmlFor="img">
-              Prodcut Image
+            <label className="my-2" htmlFor="productImg">
+              Product Image
             </label>
             <input
               type="file"
+              name="productImg"
+              onChange={productChange}
               className="file:bg-gray-400 file:px-2 file:rounded file:my-1 file:font-semibold outline-none border border-gray-300 focus:ring-2 ring-purple-400 rounded py-1 px-2"
-              name="img"
-              id="img"
+              required
             />
             <div className="flex justify-end ">
               <button className="bg-purple-500 mt-5 py-1 px-2 rounded text-white font-bold hover:bg-purple-600 cursor-pointer">

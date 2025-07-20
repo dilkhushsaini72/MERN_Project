@@ -30,11 +30,13 @@ const Products = () => {
             className="border border-zinc-200 rounded-lg p-4 shadow hover:shadow-lg transition"
           >
             <img
-              src={product_Img}
+              src={`/uploads/${item.productImg}`}
               alt="Product"
               className="w-full h-40 object-contain mb-3"
             />
-            <div className="capitalize text-lg font-medium mb-1">{item.productName}</div>
+            <div className="capitalize text-lg font-medium mb-1">
+              {item.productName}
+            </div>
             <div className="text-green-600 font-semibold mb-2">
               ₹{item.productPrice}
             </div>

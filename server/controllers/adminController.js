@@ -6,11 +6,14 @@ const nodemailer = require("nodemailer");
 
 const createProduct = async (req, res) => {
   try {
+    const productImg = req.file.filename;
     const { productName, productPrice, productCat } = req.body;
+
     const Product = new productModel({
       productName,
       productPrice,
       productCat,
+      productImg,
     });
 
     await Product.save();
