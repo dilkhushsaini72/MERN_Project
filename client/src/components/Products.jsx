@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import product_Img from "../assets/Quickzy.png";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/CartSlice";
 
 const Products = () => {
   const [product, setProduct] = useState([]);
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
@@ -40,7 +43,10 @@ const Products = () => {
             <div className="text-green-600 font-semibold mb-2">
               ₹{item.productPrice}
             </div>
-            <button className="w-full bg-purple-600 py-2 text-white rounded hover:bg-purple-700 transition cursor-pointer">
+            <button
+              onClick={() => dispatch(addToCart(item))}
+              className="w-full bg-purple-600 py-2 text-white rounded hover:bg-purple-700 transition cursor-pointer"
+            >
               Add to Cart
             </button>
           </div>
