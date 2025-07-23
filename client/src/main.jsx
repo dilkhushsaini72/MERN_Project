@@ -7,10 +7,10 @@ import App from "./App.jsx";
 import store from "./app/store.js";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <Toaster />
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
+  </>
 );
