@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from "react";
-import product_Img from "../assets/Quickzy.png";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/CartSlice";
+import Category from "./Category";
 
 const Products = () => {
+  const [catData, setCatData] = useState("All");
   const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/show-trending");
+      const url =
+        catData === "All" || !catData
+          ? "/api/show-product"
+          : `/api/show-product/${catData}`;
+      const response = await fetch(url);
       const result = await response.json();
-
       setProduct(result.data);
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching products:", error);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [catData]);
 
   return (
     <div className="p-5">
+      <Category onCategoryChange={(name) => setCatData(name)} />
       <h2 className="text-2xl font-bold mb-4">Trending Products 🔥</h2>
 
       <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {product.map((item, index) => (
+        {product.map((item) => (
           <div
             key={item._id}
             className="border border-zinc-200 rounded-lg p-4 shadow hover:shadow-lg transition"

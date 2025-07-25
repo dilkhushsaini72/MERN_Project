@@ -6,7 +6,6 @@ import Category from '../components/Category'
 const Home = () => {
   return (
     <div className='max-w-[1420px] mx-auto'>
-      <Category />
       <Hero />
       <Products />
     </div>

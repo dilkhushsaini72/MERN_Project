@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaShoppingBag,
   FaCoffee,
@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { GiFingernail } from "react-icons/gi";
 
-const Category = () => {
+const Category = ({ onCategoryChange }) => {
   const categories = [
     { name: "All", icon: <FaShoppingBag /> },
     { name: "Cafe", icon: <FaCoffee /> },
@@ -31,6 +31,7 @@ const Category = () => {
               title={cat.name}
               key={index}
               className="flex flex-col items-center min-w-[80px] text-sm text-gray-800 hover:text-green-600 hover:cursor-pointer "
+              onClick={() => onCategoryChange(cat.name)}
             >
               <div className="text-2xl mb-1">{cat.icon}</div>
               <div className="text-center">{cat.name}</div>

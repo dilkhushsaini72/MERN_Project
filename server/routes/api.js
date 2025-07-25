@@ -14,6 +14,8 @@ router.post(
   adminController.createProduct
 );
 router.get("/show-product", adminController.showProduct);
+router.get("/show-product/:cat", adminController.showProductOnCat);
+
 router.get("/getsingleproduct/:id", adminController.getsingleproduct);
 router.delete("/delete-product/:id", adminController.deleteProduct);
 router.put("/update-product", adminController.updateProduct);
