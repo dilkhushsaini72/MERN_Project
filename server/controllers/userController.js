@@ -60,6 +60,49 @@ const showTrendingController = async (req, res) => {
   }
 };
 
+// Show products on Category
+
+const showProductOnCat = async (req, res) => {
+  try {
+    const Category = req.params.cat;
+
+    const Products = await productModel.find({
+      productCat: Category,
+      productStatus: "In-stock",
+    });
+    res.status(200).send({ data: Products });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// show single product controller
+
+const showSingleProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const Product = await productModel.findById(id);
+    res.status(200).send({ data: Product });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// show single product by name
+const showSingleProductByName = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const Product = await productModel.find({
+      productName: { $regex: id, $options: "i" },
+    });
+    res.status(200).send({ data: Product });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
 // user Query controller
 
 const userQueryController = async (req, res) => {
@@ -83,5 +126,8 @@ module.exports = {
   regController,
   loginController,
   showTrendingController,
+  showSingleProduct,
+  showSingleProductByName,
   userQueryController,
+  showProductOnCat,
 };

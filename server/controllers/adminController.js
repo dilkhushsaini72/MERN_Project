@@ -35,17 +35,6 @@ const showProduct = async (req, res) => {
   }
 };
 
-const showProductOnCat = async (req, res) => {
-  try {
-    const Category = req.params.cat;
-
-    const Products = await productModel.find({ productCat: Category });
-    res.status(200).send({ data: Products });
-  } catch (error) {
-    res.status(500).send({ message: "Server Error", error });
-  }
-};
-
 // Delete product Controller
 
 const deleteProduct = async (req, res) => {
@@ -151,7 +140,6 @@ const replyQueryController = async (req, res) => {
 module.exports = {
   createProduct,
   showProduct,
-  showProductOnCat,
   deleteProduct,
   updateProduct,
   getsingleproduct,

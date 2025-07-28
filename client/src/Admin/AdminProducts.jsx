@@ -59,9 +59,9 @@ const AdminProducts = () => {
               key={idx}
               className="relative border border-zinc-200 hover:shadow-lg rounded bg-white p-4 "
             >
-              <div className="h-50">
+              <div className="h-50 flex justify-center items-center">
                 <img
-                  className="border h-full"
+                  className="py-2 h-full "
                   src={`/uploads/${item.productImg}`}
                   alt="products img"
                 />
