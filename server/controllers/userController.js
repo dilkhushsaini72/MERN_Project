@@ -1,3 +1,4 @@
+const genToken = require("../config/genToken");
 const productModel = require("../models/productModel");
 const queryModel = require("../models/queryModel");
 const userModel = require("../models/userModel");
@@ -14,14 +15,17 @@ const regController = async (req, res) => {
       email: email,
       password: hashedPassword,
     });
-
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.status(400).send({ message: "Email already registered" });
     }
 
+    const token = await genToken(User._id);
+    console.log(token);
+
     await User.save();
 
+    res.cookie("token", token);
     res.status(201).send({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
