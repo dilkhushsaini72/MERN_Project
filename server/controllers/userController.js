@@ -3,6 +3,7 @@ const productModel = require("../models/productModel");
 const queryModel = require("../models/queryModel");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 // Registration controller
 const regController = async (req, res) => {
@@ -21,7 +22,6 @@ const regController = async (req, res) => {
     }
 
     const token = await genToken(User._id);
-    console.log(token);
 
     await User.save();
 
@@ -47,6 +47,15 @@ const loginController = async (req, res) => {
     if (!checkPassword) {
       return res.status(401).send({ message: "Incorrect password" });
     }
+
+    const token = await genToken(checkUser._id);
+
+    res.cookie("token", token, {
+      httpOnly: false, // Allow JS to access the cookie
+      secure: false,
+      sameSite: "Lax", // or "Strict"
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
 
     res.status(200).send({ message: "Login successfully", data: checkUser });
   } catch (error) {

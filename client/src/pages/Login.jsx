@@ -18,12 +18,13 @@ const Login = () => {
     const { email, password } = loginData;
     if (!email || !password) {
       return toast.error("Enter Email or password");
-    } 
+    }
 
     const response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginData),
+      credentials: "include",
     });
 
     const result = await response.json();
