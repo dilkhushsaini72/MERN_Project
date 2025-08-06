@@ -16,7 +16,6 @@ const Navbar = () => {
   const token = Cookies.get("token");
   useEffect(() => {
     setIsLoggedIn(!!token);
-    console.log("All cookies:", document.cookie);
   }, [token]);
 
   // Search form submit handler

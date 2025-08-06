@@ -8,12 +8,15 @@ import {
   incrementQuantity,
   selectTotalPrice,
 } from "../features/CartSlice";
+import { useEffect } from "react";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.Cart.cartItems);
   const totalPrice = useSelector(selectTotalPrice);
+
+ 
 
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">

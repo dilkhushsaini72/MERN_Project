@@ -69,7 +69,6 @@ export default cartSlice.reducer;
 export const selectTotalPrice = (state) => {
   return state.Cart.cartItems.reduce((total, item) => {
     const price = item.productPrice;
-    console.log(total + price * item.quantity);
     return total + price * item.quantity;
   }, 0);
 };

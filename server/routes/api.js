@@ -11,6 +11,8 @@ router.get("/show-trending/:cat", userController.showProductOnCat);
 router.get("/single-productdata/:id", userController.showSingleProduct);
 router.get("/single-productbyname/:id", userController.showSingleProductByName);
 router.post("/userquery", userController.userQueryController);
+router.post("/cart-items", authMiddleware, userController.cartItemsController);
+router.get("/show-cart-items", authMiddleware, userController.showCartItemsController);
 
 router.post(
   "/create-product",
