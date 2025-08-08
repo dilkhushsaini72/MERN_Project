@@ -138,12 +138,10 @@ const userQueryController = async (req, res) => {
 // Cart items controller
 const cartItemsController = async (req, res) => {
   try {
-    const { cartItems } = req.body;
-    console.log(cartItems)
-    const userId = req.user._id; // Assuming user ID is set in the request by auth middleware
+    const cartData = req.body;
+    const userId = req.user._id;
     const user = await userModel.findById(userId);
-    user.cartItems = cartItems; // Update user's cart items
-    console.log(user);
+    user.cartItems = cartData;
     await user.save();
     res.status(200).send({
       message: "Cart items updated successfully",
@@ -157,15 +155,11 @@ const cartItemsController = async (req, res) => {
 // Show cart items controller
 const showCartItemsController = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming user ID is set in the request by auth middleware
-    const user = await userModel
-      .findById(userId)
-      .populate("cartItems.productId");
-
+    const userId = req.user._id; // Use _id from JWT
+    const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-
     res.status(200).send({ data: user.cartItems });
   } catch (error) {
     res.status(500).send({ message: "Server Error", error });

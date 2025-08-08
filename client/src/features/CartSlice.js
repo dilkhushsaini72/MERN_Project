@@ -1,27 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 const initialState = {
   cartItems: [],
 };
 
+export const syncCartWithBackend = createAsyncThunk(
+  "Cart/syncCartWithBackend",
+  async (cartItems, { rejectWithValue }) => {
+    try {
+      console.log();
+      const response = await fetch("/api/cart-items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cartItems), // cartItems should include quantity
+      });
+
+      return await response.json();
+    } catch (error) {
+      console.error("Failed to fetch cart items:", error);
+    }
+  }
+);
+
 export const cartSlice = createSlice({
   name: "Cart",
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const isAlready = state.cartItems.find((item) => {
-        return item._id === action.payload._id;
-      });
-      if (!isAlready) {
-        const newItem = {
-          ...action.payload,
-          quantity: 1,
-        };
-        state.cartItems.push(newItem);
-        toast.success("Added to cart");
+      const existingItem = state.cartItems.find(
+        (item) => item._id === action.payload._id
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
       } else {
-        toast.error("Already exist!");
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+        toast.success("Added to cart");
       }
     },
 
@@ -53,6 +67,10 @@ export const cartSlice = createSlice({
         toast.error("Minimum quantity is 1");
       }
     },
+
+    setCartItems: (state, action) => {
+      state.cartItems = action.payload;
+    },
   },
 });
 
@@ -61,6 +79,7 @@ export const {
   deleteCartItems,
   incrementQuantity,
   decrementQuantity,
+  setCartItems,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -68,7 +87,10 @@ export default cartSlice.reducer;
 // 🔢 Selector to get total cart price
 export const selectTotalPrice = (state) => {
   return state.Cart.cartItems.reduce((total, item) => {
-    const price = item.productPrice;
-    return total + price * item.quantity;
+    // Handles undefined/null/empty string and non-numeric values
+    const price = Number(item.productPrice);
+    const quantity = Number(item.quantity) || 1;
+    if (isNaN(price)) return total; // skip if price is not a number
+    return total + price * quantity;
   }, 0);
 };

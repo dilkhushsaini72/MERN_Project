@@ -2,11 +2,13 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import Cookie from "js-cookie";
 import {
   decrementQuantity,
   deleteCartItems,
   incrementQuantity,
   selectTotalPrice,
+  setCartItems,
 } from "../features/CartSlice";
 import { useEffect } from "react";
 
@@ -14,9 +16,31 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.Cart.cartItems);
+  console.log(cartItems);
   const totalPrice = useSelector(selectTotalPrice);
 
- 
+  const token = Cookie.get("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
+  useEffect(() => {
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch("/api/show-cart-items", {
+          credentials: "include",
+        });
+        const result = await response.json();
+        dispatch(setCartItems(result.data));
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+    fetchCartItems();
+  }, [dispatch, token]);
 
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">

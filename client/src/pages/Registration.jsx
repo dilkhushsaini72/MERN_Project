@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Cookie from "js-cookie";
 
 const registration = () => {
   const {
@@ -31,6 +32,11 @@ const registration = () => {
       toast.error(result.message);
     }
   };
+
+  const token = Cookie.get("token");
+  if (token) {
+    window.location.href = "/";
+  }
 
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">

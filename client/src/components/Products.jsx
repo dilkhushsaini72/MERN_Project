@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../features/CartSlice";
+import { addToCart, syncCartWithBackend } from "../features/CartSlice";
 import Category from "./Category";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -29,6 +29,11 @@ const Products = () => {
     fetchData();
   }, [catData]);
 
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    dispatch(syncCartWithBackend(item)); // Sync with backend
+  };
+
   return (
     <div className="p-5">
       <Category onCategoryChange={(name) => setCatData(name)} />
@@ -55,7 +60,7 @@ const Products = () => {
               </div>
             </Link>
             <button
-              onClick={() => dispatch(addToCart(item))}
+              onClick={() => handleAddToCart(item)}
               className="w-full bg-purple-600 py-2 text-white rounded hover:bg-purple-700 transition cursor-pointer"
             >
               Add to Cart

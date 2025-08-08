@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
+import Cookie from "js-cookie";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -36,6 +37,11 @@ const Login = () => {
       toast.error(result.message);
     }
   };
+
+  const token = Cookie.get("token");
+  if (token) {
+    window.location.href = "/";
+  }
 
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">
