@@ -166,6 +166,24 @@ const showCartItemsController = async (req, res) => {
   }
 };
 
+const deleteCartItemsController = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    const userId = req.user._id; // Use _id from JWT
+    const user = await userModel.findById(userId);
+    user.cartItems = user.cartItems.filter(
+      (item) => item._id.toString() !== _id
+    );
+    await user.save();
+
+    res
+      .status(200)
+      .send({ message: "Item deleted from cart", data: user.cartItems });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
 module.exports = {
   regController,
   loginController,
@@ -176,4 +194,5 @@ module.exports = {
   showProductOnCat,
   cartItemsController,
   showCartItemsController,
+  deleteCartItemsController,
 };

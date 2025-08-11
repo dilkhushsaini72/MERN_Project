@@ -4,7 +4,7 @@ const adminController = require("../controllers/adminController");
 const upload = require("../middleware/multer");
 const authMiddleware = require("../middleware/Auth");
 
-router.post("/reg",  userController.regController);
+router.post("/reg", userController.regController);
 router.post("/login", userController.loginController);
 router.get("/show-trending", userController.showTrendingController);
 router.get("/show-trending/:cat", userController.showProductOnCat);
@@ -12,18 +12,27 @@ router.get("/single-productdata/:id", userController.showSingleProduct);
 router.get("/single-productbyname/:id", userController.showSingleProductByName);
 router.post("/userquery", userController.userQueryController);
 router.post("/cart-items", authMiddleware, userController.cartItemsController);
-router.get("/show-cart-items", authMiddleware, userController.showCartItemsController);
+router.get(
+  "/show-cart-items",
+  authMiddleware,
+  userController.showCartItemsController
+);
+router.delete(
+  "/delete-cart-item",
+  authMiddleware,
+  userController.deleteCartItemsController
+);
 
 router.post(
   "/create-product",
   upload.single("productImg"),
   adminController.createProduct
 );
-router.get("/show-product",authMiddleware, adminController.showProduct);
+router.get("/show-product", authMiddleware, adminController.showProduct);
 router.get("/getsingleproduct/:id", adminController.getsingleproduct);
 router.delete("/delete-product/:id", adminController.deleteProduct);
 router.put("/update-product", adminController.updateProduct);
-router.get("/show-query", adminController.showQueryController);
+router.get("/show-query", authMiddleware, adminController.showQueryController);
 router.delete("/delete-query", adminController.deleteQueryController);
 router.get("/single-query/:id", adminController.getSingleQuery);
 router.post("/reply-query", adminController.replyQueryController);

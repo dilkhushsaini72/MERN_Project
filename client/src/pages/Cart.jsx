@@ -11,6 +11,7 @@ import {
   setCartItems,
 } from "../features/CartSlice";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -41,6 +42,28 @@ const Cart = () => {
     };
     fetchCartItems();
   }, [dispatch, token]);
+
+  const deleteHandler = async (item) => {
+    dispatch(deleteCartItems(item));
+    try {
+      const response = await fetch("/api/delete-cart-item", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: item._id }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success(result.message);
+      }
+    } catch (error) {
+      console.error("Error deleting cart item:", error);
+      toast.error("Failed to delete item from cart");
+      return;
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">
@@ -101,7 +124,7 @@ const Cart = () => {
                     ₹{(item.productPrice * item.quantity).toFixed(2)}
                   </div>
                   <div
-                    onClick={() => dispatch(deleteCartItems(item))}
+                    onClick={() => deleteHandler(item)}
                     className="text-red-500 hover:text-red-600 cursor-pointer transition-all hover:scale-120"
                   >
                     <FaTrash />

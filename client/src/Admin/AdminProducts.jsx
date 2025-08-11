@@ -15,6 +15,11 @@ const AdminProducts = () => {
       const response = await fetch("/api/show-product");
       const result = await response.json();
 
+      if (response.status === 401) {
+        window.location.href = "/login"; // Redirect to login if unauthorized
+        return;
+      }
+
       setProductData(result.data);
     } catch (error) {
       console.log(error);

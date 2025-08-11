@@ -11,6 +11,10 @@ const AdminQuery = () => {
       const response = await fetch("/api/show-query");
       const result = await response.json();
       setQueryData(result.data);
+      if (response.status === 401) {
+        window.location.href = "/login"; // Redirect to login if unauthorized
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -70,9 +74,13 @@ const AdminQuery = () => {
                   <tr key={item._id} className="border-b hover:bg-gray-50">
                     <td className="px-2 sm:px-4 py-2">{idx + 1}</td>
                     <td className="px-2 sm:px-4 py-2">{item.name}</td>
-                    <td className="px-2 sm:px-4 py-2 max-w-[100px] truncate">{item.query}</td>
+                    <td className="px-2 sm:px-4 py-2 max-w-[100px] truncate">
+                      {item.query}
+                    </td>
 
-                    <td className="px-2 sm:px-4 py-2 max-w-[100px] truncate">{item.email}</td>
+                    <td className="px-2 sm:px-4 py-2 max-w-[100px] truncate">
+                      {item.email}
+                    </td>
                     <td className="px-2 sm:px-4 py-2">
                       <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-1 rounded">
                         {item.queryStatus}

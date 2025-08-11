@@ -22,6 +22,10 @@ const productSchema = mongoose.Schema(
       type: String,
       default: "Out-of-stock",
     },
+    quantity: {
+      type: Number,
+      default: 1,
+    },
   },
   { timestamps: true }
 );

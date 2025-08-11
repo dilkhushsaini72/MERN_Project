@@ -10,6 +10,11 @@ const AdminDashboard = () => {
       const result = await response.json();
 
       setProductData(result.data);
+
+      if (response.status === 401) {
+        window.location.href = "/login"; // Redirect to login if unauthorized
+        return;
+      }
     } catch (error) {
       console.log(error);
     }

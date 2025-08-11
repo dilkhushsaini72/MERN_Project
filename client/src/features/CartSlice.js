@@ -8,14 +8,13 @@ const initialState = {
 export const syncCartWithBackend = createAsyncThunk(
   "Cart/syncCartWithBackend",
   async (cartItems, { rejectWithValue }) => {
+    console.log(cartItems);
     try {
-      console.log();
       const response = await fetch("/api/cart-items", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cartItems), // cartItems should include quantity
       });
-
       return await response.json();
     } catch (error) {
       console.error("Failed to fetch cart items:", error);
@@ -43,7 +42,6 @@ export const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item._id !== action.payload._id
       );
-      toast.success("Item deleted from Cart🥰");
     },
 
     incrementQuantity: (state, action) => {
