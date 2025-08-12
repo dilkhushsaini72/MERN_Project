@@ -15,7 +15,7 @@ import AdminQuery from "./Admin/AdminQuery";
 import ReplyQuery from "./Admin/ReplyQuery";
 import DetailedProduct from "./pages/DetailedProduct";
 import SearchItems from "./components/SearchItems";
-
+import UnAuthorized from "./components/UnAuthorized";
 
 const App = () => {
   return (
@@ -30,6 +30,7 @@ const App = () => {
           <Route path="/query" element={<UserQuery />} />
           <Route path="/product/:id" element={<DetailedProduct />} />
           <Route path="/search/:id" element={<SearchItems />} />
+          <Route path="/unknown" element={<UnAuthorized />} />
 
           <Route path="/admin/dashboard" element={<Admin />} />
           <Route path="/admin/products" element={<AdminProducts />} />

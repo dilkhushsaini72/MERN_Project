@@ -12,7 +12,7 @@ const AdminQuery = () => {
       const result = await response.json();
       setQueryData(result.data);
       if (response.status === 401) {
-        window.location.href = "/login"; // Redirect to login if unauthorized
+        window.location.href = "/unknown"; // Redirect to login if unauthorized
         return;
       }
     } catch (error) {
