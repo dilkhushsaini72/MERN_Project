@@ -11,9 +11,8 @@ const AdminDashboard = () => {
 
       setProductData(result.data);
 
-      if (response.status === 401) {
-        window.location.href = "/unknown"; // Redirect to login if unauthorized
-        return;
+      if (response.status === 403) {
+        return (window.location.href = "/unknown");
       }
     } catch (error) {
       console.log(error);
