@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import logo from "../assets/Quickzy.png";
 
 const Navbar = () => {
+  const [cartItems, setCartItems] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -33,6 +34,22 @@ const Navbar = () => {
     setIsLoggedIn(false);
     navigate("/login");
   };
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await fetch("/api/show-cart-items", {
+        credentials: "include",
+      });
+      const result = await response.json();
+      setCartItems(result.data);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, [cartItems]);
 
   return (
     <nav className="bg-gradient-to-t bg-white to-green-100 shadow-md sticky top-0 z-50">
@@ -79,7 +96,7 @@ const Navbar = () => {
           {/* Cart Icon */}
           <Link to={"/cart"} className="relative cursor-pointer" title="Cart">
             <span className="absolute -top-2.5 -right-[-7px] text-xs font-bold text-purple-600">
-              {cartProducts.length}
+              {cartItems ? cartItems.length : 0}
             </span>
             <FaShoppingCart className="text-2xl text-zinc-700 hover:text-zinc-900" />
           </Link>

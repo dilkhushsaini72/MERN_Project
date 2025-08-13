@@ -17,7 +17,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.Cart.cartItems);
-  console.log(cartItems);
   const totalPrice = useSelector(selectTotalPrice);
 
   const token = Cookie.get("token");
@@ -63,6 +62,78 @@ const Cart = () => {
       toast.error("Failed to delete item from cart");
       return;
     }
+  };
+
+  const handleCheckout = async () => {
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty!");
+      return;
+    }
+    const amount = totalPrice.toFixed(2);
+    const currency = "INR";
+    const receipt = "receipt#12345";
+    try {
+      const response = await fetch("/api/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, currency, receipt }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success("Order created successfully!");
+        const options = {
+          key: "rzp_test_uoJzKz9ks5PBEY",
+          amount: result.order.amount,
+          currency: result.order.currency,
+          name: "Quickzy",
+          description: "Order Payment",
+          order_id: result.order.id,
+          handler: async (response) => {
+            try {
+              const paymentResponse = await fetch("/api/verify-order", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  orderId: response.razorpay_order_id,
+                  paymentId: response.razorpay_payment_id,
+                  signature: response.razorpay_signature,
+                }),
+              });
+
+              const paymentResult = await paymentResponse.json();
+              if (paymentResponse.ok) {
+                toast.success("Payment successful!");
+                navigate("/");
+              } else {
+                toast.error(paymentResult.message || "Payment failed");
+              }
+            } catch (error) {
+              console.error("Error processing payment:", error);
+              toast.error("Payment processing failed");
+            }
+          },
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+
+
+        
+      } else {
+        toast.error(result.message || "Failed to create order");
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      toast.error("Failed to create order");
+      return;
+    }
+
+    // toast.success("Proceeding to checkout...");
+    // navigate("/checkout");
   };
 
   return (
@@ -152,7 +223,10 @@ const Cart = () => {
             <span>Total:</span>
             <span>₹{totalPrice.toFixed(2)}</span>
           </div>
-          <button className="w-full bg-green-400 hover:bg-green-600 text-white py-2 rounded-md transition cursor-pointer">
+          <button
+            onClick={handleCheckout}
+            className="w-full bg-green-400 hover:bg-green-600 text-white py-2 rounded-md transition cursor-pointer"
+          >
             Checkout
           </button>
         </div>

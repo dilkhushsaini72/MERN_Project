@@ -3,7 +3,14 @@ const productModel = require("../models/productModel");
 const queryModel = require("../models/queryModel");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
 require("dotenv").config();
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 // Registration controller
 const regController = async (req, res) => {
@@ -184,6 +191,46 @@ const deleteCartItemsController = async (req, res) => {
   }
 };
 
+// create order controller
+const createOrderController = async (req, res) => {
+  try {
+    const { amount, currency, receipt } = req.body;
+    const options = {
+      amount: amount * 100, // Convert to smallest currency unit
+      currency,
+      receipt,
+    };
+    const order = await razorpay.orders.create(options);
+    if (!order) {
+      return res.status(500).send({ message: "Failed to create order" });
+    }
+    res.status(200).send({ message: "Order created successfully", order });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
+// Verify order controller
+const verifyOrderController = async (req, res) => {
+  try {
+    const { paymentId, orderId, signature } = req.body;
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(`${orderId}|${paymentId}`)
+      .digest("hex");
+
+    if (generatedSignature !== signature) {
+      return res.status(400).send({ message: "Invalid signature" });
+    }
+
+    // Here you can save the order details to your database if needed
+
+    res.status(200).send({ message: "Order verified successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Server Error", error });
+  }
+};
+
 module.exports = {
   regController,
   loginController,
@@ -195,4 +242,6 @@ module.exports = {
   cartItemsController,
   showCartItemsController,
   deleteCartItemsController,
+  createOrderController,
+  verifyOrderController,
 };

@@ -22,6 +22,14 @@ router.delete(
   authMiddleware,
   userController.deleteCartItemsController
 );
+router.post(
+  "/create-order",
+  authMiddleware,
+  userController.createOrderController
+);
+router.post("/verify-order", userController.verifyOrderController);
+
+// ****************Admin routes*******************
 
 router.post(
   "/create-product",
