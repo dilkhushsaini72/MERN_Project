@@ -3,6 +3,7 @@ const userController = require("../controllers/userController");
 const adminController = require("../controllers/adminController");
 const upload = require("../middleware/multer");
 const authMiddleware = require("../middleware/Auth");
+const adminAuth = require("../middleware/adminAuth");
 
 router.post("/reg", userController.regController);
 router.post("/login", userController.loginController);
@@ -36,11 +37,11 @@ router.post(
   upload.single("productImg"),
   adminController.createProduct
 );
-router.get("/show-product", authMiddleware, adminController.showProduct);
+router.get("/show-product", adminAuth, adminController.showProduct);
 router.get("/getsingleproduct/:id", adminController.getsingleproduct);
 router.delete("/delete-product/:id", adminController.deleteProduct);
 router.put("/update-product", adminController.updateProduct);
-router.get("/show-query", authMiddleware, adminController.showQueryController);
+router.get("/show-query", adminAuth, adminController.showQueryController);
 router.delete("/delete-query", adminController.deleteQueryController);
 router.get("/single-query/:id", adminController.getSingleQuery);
 router.post("/reply-query", adminController.replyQueryController);

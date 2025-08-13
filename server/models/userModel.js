@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      default: "user", // Default role is user, can be changed to admin
+    },
     cartItems: {
       type: Array,
       default: [
